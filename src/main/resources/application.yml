@@ -1,0 +1,8 @@
+elite:
+  config:
+    idcenterid: 0001
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
