@@ -4,7 +4,6 @@ import com.gproom.elite.common.dto.ArticleAddDTO;
 import com.gproom.elite.common.vo.ArticleVO;
 import com.gproom.elite.common.vo.PageVO;
 import com.gproom.elite.common.vo.ResponseVO;
-import com.gproom.elite.model.Article;
 import com.gproom.elite.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
