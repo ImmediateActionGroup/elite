@@ -11,3 +11,10 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
+server:
+  port: 8000
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: beishan
+    keyStoreType: PKCS12
+    keyAlias: tomcat

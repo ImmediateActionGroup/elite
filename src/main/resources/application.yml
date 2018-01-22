@@ -2,7 +2,7 @@ elite:
   config:
     idcenterid: 0001
 server:
-  port: 8080
+  port: 8000
 spring:
   profiles:
     active: dev
