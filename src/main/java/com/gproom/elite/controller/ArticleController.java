@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * created by weixeushan
- * at 2018/1/10- 14:56
+ * at 2018/1/10-14:56
  */
 @RestController
 @RequestMapping("/api")
