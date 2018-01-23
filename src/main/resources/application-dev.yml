@@ -12,7 +12,8 @@ spring:
     hibernate:
       ddl-auto: update
 server:
-  port: 8000
+  port: 8443
+  httpPort: 8080
   ssl:
     key-store: classpath:keystore.p12
     key-store-password: beishan
