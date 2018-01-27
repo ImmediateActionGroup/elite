@@ -12,8 +12,8 @@ spring:
     hibernate:
       ddl-auto: update
 server:
-  port: 443
-  httpPort: 80
+  port: 8443
+  httpPort: 8080
   ssl:
     key-store: classpath:214475137930308.pfx
     key-store-password: 214475137930308
