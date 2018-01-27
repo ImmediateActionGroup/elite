@@ -15,7 +15,6 @@ server:
   port: 443
   httpPort: 80
   ssl:
-      key-store: classpath:keystore.p12
-      key-store-password: beishan
+      key-store: classpath:214475137930308.pfx
+      key-store-password: 214475137930308
       keyStoreType: PKCS12
-      keyAlias: tomcat
