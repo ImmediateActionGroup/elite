@@ -77,4 +77,16 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
         articleRepository.save(article);
         log.info("创建文章成功, {}", article);
     }
+
+    @Override
+    public ArticleVO findOneById(Long id) {
+        Article article = articleRepository.findOne(id);
+        return ArticleVO.builder()
+                .id(article.getId())
+                .title(article.getTitle())
+                .content(article.getContent())
+                .createdTime(article.getCreatedTime())
+                .lastModifyTime(article.getLastModifyTime())
+                .build();
+    }
 }

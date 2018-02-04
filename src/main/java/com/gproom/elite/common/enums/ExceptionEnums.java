@@ -8,8 +8,8 @@ import lombok.Getter;
  */
 @Getter
 public enum ExceptionEnums {
-    NO_EXCEPTION("000000", "no exception"),
-    EXCEPTION("999999", "exception")
+    SUCCESS("000000", "success"),
+    OTHER_EXCEPTION("999999", "exception")
     ;
     private String code;
     private String message;

@@ -10,6 +10,19 @@ import com.gproom.elite.common.vo.PageVO;
  */
 
 public interface ArticleService {
+    /**
+     * 分页查询
+     * @param offset
+     * @param limit
+     * @return
+     */
     PageVO<ArticleVO> pageQuery(int offset, int limit);
+
+    /**
+     * 文章添加
+     * @param articleAddDTO
+     */
     void add(ArticleAddDTO articleAddDTO);
+
+    ArticleVO findOneById(Long id);
 }

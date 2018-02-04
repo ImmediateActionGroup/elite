@@ -14,21 +14,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponseVO {
+public class ResponseVO<T> {
     private String code;
     private String message;
-    private Object data;
+    private T data;
 
     public static ResponseVO buildSuccess(){
         return buildSuccess("success", null);
     }
 
+
     public static ResponseVO buildFail(){
-        return ResponseVO.builder()
-                .code(ExceptionEnums.EXCEPTION.getCode())
-                .message("fail")
-                .data(null)
-                .build();
+        return build(ExceptionEnums.OTHER_EXCEPTION.getCode(),
+                ExceptionEnums.OTHER_EXCEPTION.getMessage(),
+                null);
     }
 
     public static ResponseVO buildSuccess(String message){
@@ -36,16 +35,17 @@ public class ResponseVO {
     }
 
     public static ResponseVO buildSuccess(Object data){
-        return buildSuccess(ExceptionEnums.NO_EXCEPTION.getCode(), data);
+        return build(ExceptionEnums.SUCCESS.getCode(), ExceptionEnums.SUCCESS.getMessage(), data);
     }
 
     public static ResponseVO buildSuccess(String message, Object data){
-        return buildSuccess(ExceptionEnums.NO_EXCEPTION.getCode(), message, data);
+        return build(ExceptionEnums.SUCCESS.getCode(), message, data);
     }
-
-    public static ResponseVO buildSuccess(String code, String message, Object data){
-        return ResponseVO.builder()
-                .code(code)
+    public static ResponseVO build(ExceptionEnums exceptionEnums){
+        return build(exceptionEnums.getCode(), exceptionEnums.getMessage(), null);
+    }
+    public static <T> ResponseVO build(String code, String message, T data){
+        return ResponseVO.builder().code(code)
                 .message(message)
                 .data(data)
                 .build();
