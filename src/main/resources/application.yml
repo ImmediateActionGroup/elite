@@ -6,3 +6,8 @@ server:
 spring:
   profiles:
     active: dev
+mybatis:
+  type-aliases-package: com.gproom.elite.model
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations:
+    - classpath:sqlmap/*.xml

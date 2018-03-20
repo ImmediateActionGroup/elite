@@ -3,6 +3,7 @@ package com.gproom.elite.utils;
 import com.gproom.elite.common.dto.user.UserPermissionCheck;
 import com.gproom.elite.service.UserPermissionService;
 import org.springframework.util.Assert;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -34,6 +35,8 @@ public class PermissionChecker {
         if(!StringUtils.hasText(pkey)){
             return userPermissionCheck;
         }
+
+        String decodeStr = new String(Base64Utils.decodeFromString(pkey));
 
         String [] splitStr = StringUtils.split(pkey, SPLIT_STR);
         if(splitStr != null && splitStr.length != 3){

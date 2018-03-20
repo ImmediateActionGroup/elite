@@ -8,7 +8,13 @@ import lombok.Getter;
  */
 @Getter
 public enum BizTagEnums {
-    ARTICLE(1L, "000001");
+    ARTICLE_HEADER(1L, "000001"),
+    ARTICLE_INFO(2L, "000010"),
+    ARTICLE_STATISTIC(3L, "000011"),
+
+    BOARD(4L, "000100"),
+    USER(5L, "000101"),
+
     ;
 
     private long value;
