@@ -2,6 +2,9 @@ package com.gproom.elite.exception;
 
 import com.gproom.elite.common.enums.ExceptionEnums;
 import com.gproom.elite.common.vo.ResponseVO;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author xueshan.wei
  * @Date 2018/2/4 下午5:27
  */
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
@@ -20,6 +24,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ResponseVO exceptionHandler(Exception exception){
+        HttpHeaders headers = new HttpHeaders();
+        HttpStatus status = HttpStatus.OK;
 
         if(exception instanceof BusinessException){
             BusinessException businessException = (BusinessException) exception;

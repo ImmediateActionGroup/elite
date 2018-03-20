@@ -1,5 +1,6 @@
 package com.gproom.elite.controller;
 
+import com.gproom.elite.annotation.PermissionCheck;
 import com.gproom.elite.common.enums.ExceptionEnums;
 import com.gproom.elite.exception.BusinessException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,5 +21,11 @@ public class HelloController {
     @GetMapping("/test")
     public String test(){
         throw new BusinessException(ExceptionEnums.OTHER_EXCEPTION);
+    }
+
+    @GetMapping("/testPermission")
+    @PermissionCheck
+    public String testPermission(){
+        return "permission check success";
     }
 }

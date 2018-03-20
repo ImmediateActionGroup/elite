@@ -4,23 +4,33 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * https 端口转发配置
  * @Author xueshan.wei
  * @Date 2018/1/23 下午11:10
  */
 @Configuration
-public class HttpConfig {
+@ConditionalOnProperty(name = "server.openSSL", havingValue = "true")
+public class HttpConfig implements InitializingBean{
 
     @Value("${server.port}")
     private int httpsPort;
     @Value("${server.httpPort}")
     private int httpPort;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("http Config 初始化");
+        System.out.println("server.port:" + httpsPort + " httpPort:" + httpPort);
+    }
 
     @Bean
     public EmbeddedServletContainerFactory servletContainer() {
