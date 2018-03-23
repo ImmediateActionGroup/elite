@@ -1,5 +1,6 @@
 package com.gproom.elite.common.vo.page;
 
+import com.gproom.elite.utils.PageUtils;
 import lombok.Data;
 
 /**
@@ -7,7 +8,6 @@ import lombok.Data;
  * @data 2018/3/20 18:31
  * @desc
  */
-@Data
 public class PageRequest {
     /**
      * 页大小
@@ -18,5 +18,31 @@ public class PageRequest {
      */
     private Integer pageNumber;
 
+    private Integer offset;
+    private Integer limit;
 
+
+    public Integer getOffset() {
+        return PageUtils.calculateOffset(pageSize, pageNumber);
+    }
+
+    public Integer getLimit() {
+        return PageUtils.calculateLimit(pageSize, pageNumber);
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 }

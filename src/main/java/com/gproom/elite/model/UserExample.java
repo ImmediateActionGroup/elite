@@ -424,66 +424,27 @@ public class UserExample {
             addCriterion("last_modify_time not between", value1, value2, "lastModifyTime");
             return (Criteria) this;
         }
+//
+//        public Criteria andDeleteFlagIsNull() {
+//            addCriterion("delete_flag is null");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andDeleteFlagIsNotNull() {
+//            addCriterion("delete_flag is not null");
+//            return (Criteria) this;
+//        }
 
-        public Criteria andDeleteFlagIsNull() {
-            addCriterion("delete_flag is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagIsNotNull() {
-            addCriterion("delete_flag is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagEqualTo(Byte value) {
+        public Criteria andDeleteFlagEqualTo(int value) {
             addCriterion("delete_flag =", value, "deleteFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDeleteFlagNotEqualTo(Byte value) {
+        public Criteria andDeleteFlagNotEqualTo(int value) {
             addCriterion("delete_flag <>", value, "deleteFlag");
             return (Criteria) this;
         }
 
-        public Criteria andDeleteFlagGreaterThan(Byte value) {
-            addCriterion("delete_flag >", value, "deleteFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagGreaterThanOrEqualTo(Byte value) {
-            addCriterion("delete_flag >=", value, "deleteFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagLessThan(Byte value) {
-            addCriterion("delete_flag <", value, "deleteFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagLessThanOrEqualTo(Byte value) {
-            addCriterion("delete_flag <=", value, "deleteFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagIn(List<Byte> values) {
-            addCriterion("delete_flag in", values, "deleteFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagNotIn(List<Byte> values) {
-            addCriterion("delete_flag not in", values, "deleteFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagBetween(Byte value1, Byte value2) {
-            addCriterion("delete_flag between", value1, value2, "deleteFlag");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeleteFlagNotBetween(Byte value1, Byte value2) {
-            addCriterion("delete_flag not between", value1, value2, "deleteFlag");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -5,6 +5,7 @@ import com.gproom.elite.common.dto.user.UserDto;
 import com.gproom.elite.common.enums.BizTagEnums;
 import com.gproom.elite.common.enums.DeleteFlagEnum;
 import com.gproom.elite.model.User;
+import com.gproom.elite.model.UserExample;
 import com.gproom.elite.model.dao.UserMapper;
 import com.gproom.elite.service.UserService;
 import com.gproom.elite.utils.DateUtils;
@@ -15,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author xueshan.wei
@@ -59,7 +62,7 @@ public class UserServiceImpl extends BaseService implements UserService{
         if(userDto == null){
             return null;
         }
-        return UserPermissionCheckUtil.generatePermission(userDto.getId(), userDto.getPassword(), permissionKey);
+        return UserPermissionCheckUtil.generatePermission(userDto.getUsername(), userDto.getPassword(), permissionKey);
     }
 
     @Override
@@ -86,5 +89,30 @@ public class UserServiceImpl extends BaseService implements UserService{
         user.setLastModifyTime(now);
         user.setDeleteFlag(DeleteFlagEnum.FAlSE.getValue());
         return user;
+    }
+
+    @Override
+    public UserDto findUserByUsername(String username) {
+        if(!StringUtils.hasText(username)){
+            return null;
+        }
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andUsernameEqualTo(username)
+                .andDeleteFlagEqualTo(DeleteFlagEnum.FAlSE.getValue());
+
+        List<User> users = userMapper.selectByExample(userExample);
+        if(users != null && users.size() > 0){
+            return assemble(users.get(0));
+        }
+        return null;
+    }
+
+    private UserDto assemble(User user){
+        return UserDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.gproom.elite.common.query;
 
-import com.gproom.elite.common.PageRequest;
+
+import com.gproom.elite.common.vo.page.PageRequest;
 
 /**
  * article 分页查询
