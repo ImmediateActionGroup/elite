@@ -19,5 +19,5 @@ server:
     key-store: classpath:keystore.p12
     key-store-password: 123456
     keyStoreType: PKCS12
-permisson:
+permission:
   user-key: 123456

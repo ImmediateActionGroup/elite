@@ -1,6 +1,7 @@
 package com.gproom.elite.utils;
 
 import com.gproom.elite.common.dto.user.UserPermissionCheck;
+import com.gproom.elite.common.user.UserPrincipal;
 import com.gproom.elite.service.UserPermissionService;
 import org.springframework.util.Assert;
 import org.springframework.util.Base64Utils;
@@ -25,6 +26,11 @@ public class PermissionChecker {
         if(!userPermissionCheck.isParseResult()){
             return false;
         }
+        UserPrincipalContextHolder.setUserPrincipal(UserPrincipal.builder()
+                .userId(userPermissionCheck.getUserId())
+                .username(userPermissionCheck.getUserName())
+                .userPkey(pkey)
+                .build());
         return userPermissionService.checkPermission(userPermissionCheck);
     }
 
