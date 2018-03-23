@@ -16,6 +16,6 @@ server:
   httpPort: 80
   openSSL: true
   ssl:
-    key-store: classpath:214475137930308.pfx
+    key-store: classpath:https/214475137930308.pfx
     key-store-password: 214475137930308
     keyStoreType: PKCS12

@@ -16,7 +16,7 @@ server:
   httpPort: 8080
   openSSL: true
   ssl:
-    key-store: classpath:keystore.p12
+    key-store: classpath:https/keystore.p12
     key-store-password: 123456
     keyStoreType: PKCS12
 permission:
