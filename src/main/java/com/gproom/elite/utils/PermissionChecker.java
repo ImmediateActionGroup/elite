@@ -1,7 +1,9 @@
 package com.gproom.elite.utils;
 
 import com.gproom.elite.common.dto.user.UserPermissionCheck;
+import com.gproom.elite.common.enums.ExceptionEnums;
 import com.gproom.elite.common.user.UserPrincipal;
+import com.gproom.elite.exception.BusinessException;
 import com.gproom.elite.service.UserPermissionService;
 import com.gproom.elite.service.UserService;
 import org.springframework.util.Assert;
@@ -22,7 +24,16 @@ public class PermissionChecker {
         this.userPermissionService = userPermissionService;
     }
 
-    public boolean checkPermission(String pkey){
+    public void checkUserPermission(String pkey){
+        if(!checkPermission(pkey)){
+            throw new BusinessException(ExceptionEnums.PERMISSION_CHECK_ERROR);
+        }
+    }
+
+    private boolean checkPermission(String pkey){
+        if(!StringUtils.hasText(pkey)){
+            return false;
+        }
         UserPermissionCheck userPermissionCheck = parseUserPermissionCheck(pkey);
         if(!userPermissionCheck.isParseResult()){
             return false;
