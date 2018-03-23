@@ -10,7 +10,10 @@ import lombok.Data;
  */
 @Data
 public class BusinessException extends RuntimeException{
-    private ExceptionEnums exceptionEnums;
+    protected ExceptionEnums exceptionEnums;
+
+    public BusinessException() {
+    }
 
     public BusinessException(String message, ExceptionEnums exceptionEnums) {
         super(message);

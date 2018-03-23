@@ -6,25 +6,34 @@ import com.gproom.elite.common.user.UserPrincipal;
 import com.gproom.elite.exception.BusinessException;
 import com.gproom.elite.service.UserPermissionService;
 import com.gproom.elite.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author weixueshan
  * @data 2018/3/20 19:49
  * @desc
  */
+@Slf4j
 public class PermissionChecker {
     private static final String SPLIT_STR = ":";
     private UserPermissionService userPermissionService;
+    private final static String PERMISSION_KEY = "pkey";
 
     public PermissionChecker(UserPermissionService userPermissionService) {
         Assert.notNull(userPermissionService, "userPermissionService can't be null");
         this.userPermissionService = userPermissionService;
     }
 
-    public void checkUserPermission(String pkey){
+    public void checkUserPermission(){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String pkey = request.getHeader(PERMISSION_KEY);
         if(!checkPermission(pkey)){
             throw new BusinessException(ExceptionEnums.PERMISSION_CHECK_ERROR);
         }
@@ -34,7 +43,14 @@ public class PermissionChecker {
         if(!StringUtils.hasText(pkey)){
             return false;
         }
-        UserPermissionCheck userPermissionCheck = parseUserPermissionCheck(pkey);
+        UserPermissionCheck userPermissionCheck = null;
+
+        try{
+            userPermissionCheck = parseUserPermissionCheck(pkey);
+        }catch (Exception e){
+            log.error("解析权限字符串出错, data : {}", pkey, e);
+            throw new BusinessException(ExceptionEnums.PERMISSION_CHECK_ERROR);
+        }
         if(!userPermissionCheck.isParseResult()){
             return false;
         }

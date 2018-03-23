@@ -28,6 +28,11 @@ public class GlobalExceptionHandler {
         HttpStatus status = HttpStatus.OK;
 
         if(exception instanceof BusinessException){
+
+            if(exception instanceof ParameterValidException){
+                ParameterValidException parameterValidException = (ParameterValidException) exception;
+                return ResponseVO.build(parameterValidException.getExceptionEnums(), parameterValidException.getErrors());
+            }
             BusinessException businessException = (BusinessException) exception;
             ExceptionEnums exceptionEnums = businessException.getExceptionEnums();
             return ResponseVO.build(exceptionEnums);

@@ -10,9 +10,11 @@ import lombok.Getter;
 public enum ExceptionEnums {
     SUCCESS("000000", "成功"),
 
+    PARAMETER_VALID_ERROR("0000002", "参数验证错误"),
+
     ARTICLE_ADD_ERROR("100000", "添加文章出错"),
 
-    PERMISSION_CHECK_ERROR("900000", "权限校验失败"),
+    PERMISSION_CHECK_ERROR("900000", "没有权限进行操作"),
 
     OTHER_EXCEPTION("999999", "其他异常")
     ;

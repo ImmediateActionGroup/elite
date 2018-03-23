@@ -41,8 +41,12 @@ public class ResponseVO<T> {
     public static ResponseVO buildSuccess(String message, Object data){
         return build(ExceptionEnums.SUCCESS.getCode(), message, data);
     }
+
     public static ResponseVO build(ExceptionEnums exceptionEnums){
-        return build(exceptionEnums.getCode(), exceptionEnums.getMessage(), null);
+        return build(exceptionEnums, null);
+    }
+    public static <T> ResponseVO build(ExceptionEnums exceptionEnums, T data){
+        return build(exceptionEnums.getCode(), exceptionEnums.getMessage(), data);
     }
     public static <T> ResponseVO build(String code, String message, T data){
         return ResponseVO.builder().code(code)

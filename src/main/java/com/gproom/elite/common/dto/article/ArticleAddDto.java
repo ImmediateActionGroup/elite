@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author weixueshan
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ArticleAddDto {
     private Long id;
+    @NotBlank(message = "文章标题不能为空")
     private String title;
     private String content;
     private Long userId;

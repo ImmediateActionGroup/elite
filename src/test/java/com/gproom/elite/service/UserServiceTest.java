@@ -36,7 +36,7 @@ public class UserServiceTest extends EliteApplicationTests{
 
     @Test
     public void testGetMd5Permission() throws Exception{
-        Long userId = 61279727880785920L;
+        Long userId = 61029196696408064L;
         System.out.println(userService.getMd5Permission(userId));
     }
 
