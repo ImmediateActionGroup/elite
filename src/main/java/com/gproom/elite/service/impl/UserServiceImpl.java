@@ -28,6 +28,7 @@ public class UserServiceImpl extends BaseService implements UserService{
 
     @Autowired
     private UserMapper userMapper;
+
     @Value("${permission.user-key}")
     private String permissionKey;
 
