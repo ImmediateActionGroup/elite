@@ -28,7 +28,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         if(userPermissionCheck == null || userPermissionCheck.isParseResult() == false){
             return false;
         }
-        UserDto userDto = userService.findUserById(userPermissionCheck.getUserId());
+        UserDto userDto = userService.findUserByUsername(userPermissionCheck.getUserName());
         if(userDto == null){
             return false;
         }
@@ -36,7 +36,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     }
 
     private boolean checkMd5(UserPermissionCheck userPermissionCheck, UserDto userDto){
-        String sourceMd5 = DigestUtils.md5DigestAsHex((userDto.getId() + userDto.getPassword() + permissionKey).getBytes());
+        String sourceMd5 = DigestUtils.md5DigestAsHex((userDto.getUsername() + userDto.getPassword() + permissionKey).getBytes());
         if(sourceMd5.equals(userPermissionCheck.getMd5())){
             return true;
         }

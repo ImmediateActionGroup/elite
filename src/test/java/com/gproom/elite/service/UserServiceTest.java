@@ -5,6 +5,8 @@ import com.gproom.elite.common.dto.user.UserAddDto;
 import com.gproom.elite.common.dto.user.UserDto;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Base64Utils;
+import org.springframework.util.DigestUtils;
 
 /**
  * @Author xueshan.wei
@@ -34,7 +36,9 @@ public class UserServiceTest extends EliteApplicationTests{
 
     @Test
     public void testGetMd5Permission() throws Exception{
-        Long userId = 60300238187155456L;
+        Long userId = 61279727880785920L;
         System.out.println(userService.getMd5Permission(userId));
     }
+
+
 }

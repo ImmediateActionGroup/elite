@@ -3,6 +3,7 @@ package com.gproom.elite.utils;
 import com.gproom.elite.common.dto.user.UserPermissionCheck;
 import com.gproom.elite.common.user.UserPrincipal;
 import com.gproom.elite.service.UserPermissionService;
+import com.gproom.elite.service.UserService;
 import org.springframework.util.Assert;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -26,6 +27,7 @@ public class PermissionChecker {
         if(!userPermissionCheck.isParseResult()){
             return false;
         }
+
         UserPrincipalContextHolder.setUserPrincipal(UserPrincipal.builder()
                 .userId(userPermissionCheck.getUserId())
                 .username(userPermissionCheck.getUserName())
@@ -44,17 +46,17 @@ public class PermissionChecker {
 
         String decodeStr = new String(Base64Utils.decodeFromString(pkey));
 
-        String [] splitStr = StringUtils.split(pkey, SPLIT_STR);
-        if(splitStr != null && splitStr.length != 3){
+        String [] splitStr = StringUtils.split(decodeStr, SPLIT_STR);
+        if(splitStr != null && splitStr.length != 2){
             return userPermissionCheck;
         }
-        try{
-            userPermissionCheck.setUserId(Long.parseLong(splitStr[0]));
-        }catch (Exception e){
-            return userPermissionCheck;
-        }
-        userPermissionCheck.setUserName(splitStr[1]);
-        userPermissionCheck.setMd5(splitStr[2]);
+//        try{
+//            userPermissionCheck.setUserId(Long.parseLong(splitStr[0]));
+//        }catch (Exception e){
+//            return userPermissionCheck;
+//        }
+        userPermissionCheck.setUserName(splitStr[0]);
+        userPermissionCheck.setMd5(splitStr[1]);
         userPermissionCheck.setParseResult(true);
         return userPermissionCheck;
     }

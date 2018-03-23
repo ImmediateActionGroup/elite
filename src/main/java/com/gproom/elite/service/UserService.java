@@ -14,4 +14,6 @@ public interface UserService {
     String getMd5Permission(Long id);
 
     boolean addUser(UserAddDto userAddDto);
+
+    UserDto findUserByUsername(String username);
 }

@@ -9,9 +9,10 @@ import org.springframework.util.DigestUtils;
  */
 public class UserPermissionCheckUtil {
 
-    public static String generatePermission(Long userId, String password, String key){
-        String sourceStr = userId + password + key;
+    public static String generatePermission(String username, String password, String key){
+        String sourceStr = username + password + key;
         String md5 = DigestUtils.md5DigestAsHex(sourceStr.getBytes());
-        return Base64Utils.encodeToString(md5.getBytes());
+        String aim = username + ":" + md5;
+        return Base64Utils.encodeToString(aim.getBytes());
     }
 }
