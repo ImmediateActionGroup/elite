@@ -5,20 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @author weixueshan
- * @data 2018/3/21 11:28
+ * @data 2018/3/23 14:32
  * @desc
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ArticleAddDto {
-    private Long id;
-    private String title;
-    private String content;
-    private Long userId;
+public class ArticleInfoAddDTO {
+
     private Long boardId;
-    private String type;
+
+    private Long articleId;
+
+    private String content;
 }

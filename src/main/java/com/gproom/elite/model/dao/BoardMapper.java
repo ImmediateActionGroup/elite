@@ -20,6 +20,8 @@ public interface BoardMapper {
 
     Board selectByPrimaryKey(Long id);
 
+    List<Board> selectAll();
+
     int updateByExampleSelective(@Param("record") Board record, @Param("example") BoardExample example);
 
     int updateByExample(@Param("record") Board record, @Param("example") BoardExample example);

@@ -7,18 +7,16 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author weixueshan
- * @data 2018/3/21 11:28
+ * @data 2018/3/23 13:47
  * @desc
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ArticleAddDto {
+public class ArticleStatisticAddDTO {
     private Long id;
-    private String title;
-    private String content;
-    private Long userId;
     private Long boardId;
-    private String type;
+
+    private Long articleId;
 }
