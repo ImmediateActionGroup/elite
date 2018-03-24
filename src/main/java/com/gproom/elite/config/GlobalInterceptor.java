@@ -33,23 +33,24 @@ public class GlobalInterceptor {
     }
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
-    public void pointCut(){
+    public void pointCut() {
 
     }
 
     @Around("pointCut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         setCurrentInvokedMethodAndJoinPoint(joinPoint);
 
-        for(MethodInterceptor interceptor : interceptors){
+        for (MethodInterceptor interceptor : interceptors) {
             interceptor.doBefore(null);
         }
 
         Object retVal = joinPoint.proceed();
+
         return retVal;
     }
 
-    public void setCurrentInvokedMethodAndJoinPoint(JoinPoint joinPoint){
+    public void setCurrentInvokedMethodAndJoinPoint(JoinPoint joinPoint) {
         GlobalMethodInvokeContextHolder.setCurrentJoinPoint(joinPoint);
         Method invokedMethod = AopUtils.getMethod(joinPoint);
         GlobalMethodInvokeContextHolder.setCurrentInterceptorMethod(invokedMethod);
