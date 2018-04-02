@@ -19,6 +19,7 @@ import com.gproom.elite.service.ArticleService;
 import com.gproom.elite.service.BoardService;
 import com.gproom.elite.utils.IdWorker;
 import com.gproom.elite.utils.UserPrincipalContextHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ import java.util.Objects;
  * @desc
  */
 @Service
+@Slf4j
 public class ArticleServiceImpl extends BaseService implements ArticleService {
 
     @Autowired
@@ -55,12 +57,14 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
     @Override
     @Transactional
     public boolean addArticle(ArticleAddDto articleAddDto) {
+        log.info("添加文章-开始，参数为: {}", articleAddDto);
         if(Objects.isNull(articleAddDto)){
+            log.error("添加文章-出错，参数为空");
             return false;
         }
 
         /**
-         *
+         * 检查版块是否存在
          */
         if(!boardService.isExistById(articleAddDto.getBoardId())){
             return false;

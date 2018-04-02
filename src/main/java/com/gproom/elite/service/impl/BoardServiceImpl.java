@@ -1,5 +1,6 @@
 package com.gproom.elite.service.impl;
 
+import com.gproom.elite.annotation.Cache;
 import com.gproom.elite.common.dto.board.BoardAddDto;
 import com.gproom.elite.common.dto.board.BoardDTO;
 import com.gproom.elite.common.enums.BizTagEnums;
@@ -68,6 +69,7 @@ public class BoardServiceImpl extends BaseService implements BoardService{
     }
 
     @Override
+    @Cache(description = "根据版块ID查询版块是否存在")
     public boolean isExistById(Long boardId) {
         BoardDTO boardDTO = findById(boardId);
         if(Objects.nonNull(boardDTO)){
