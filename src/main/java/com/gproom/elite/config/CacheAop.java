@@ -1,35 +1,32 @@
 package com.gproom.elite.config;
 
+import com.gproom.elite.common.cache.AbstractCache;
 import com.gproom.elite.common.cache.CacheUtils;
+import com.gproom.elite.common.cache.RedisCacheFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  * @Author xueshan.wei
  * @Date 2018/3/31 下午11:57
  */
-@Aspect
 @Component
 @Slf4j
-public class CacheAop {
+public class CacheAop extends AbstractCache{
+    @Autowired
+    private RedisCacheFactory<String, Object> redisCacheFactory;
+    @Override
+    protected void doCacheBefore() {
+        this.setCacheFactory(redisCacheFactory);
+    }
 
-    @Pointcut("@annotation(com.gproom.elite.annotation.Cache)")
-    public void cachePoint(){}
+    @Override
+    protected void doCacheAfter() {
 
-    @Around("cachePoint()")
-    public Object cacheAround(ProceedingJoinPoint joinPoint) throws Throwable{
-        Object cachedValue = CacheUtils.getCache(joinPoint);
-        if(cachedValue != null){
-            log.info("命中缓存, 直接返回值");
-            return cachedValue;
-        }
-        Object result = joinPoint.proceed();
-        log.info("未命中缓存，查询后保存值并返回");
-        CacheUtils.setCache(result);
-        return result;
     }
 }

@@ -5,5 +5,9 @@ package com.gproom.elite.common.cache;
  * @data 2018/4/2 16:30
  * @desc
  */
-public class AbstractCacheFactory {
+public abstract class AbstractCacheFactory<K, V> {
+
+    protected abstract void setCache(K cacheKey, V cacheValue);
+
+    protected abstract V getCache(K cacheKey);
 }

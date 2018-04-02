@@ -1,6 +1,7 @@
 package com.gproom.elite.common.cache;
 
 import com.gproom.elite.annotation.Cache;
+import com.gproom.elite.common.dto.article.ArticleAddDto;
 import com.gproom.elite.utils.AopUtils;
 import com.gproom.elite.utils.JsonUtils;
 import org.aspectj.lang.JoinPoint;
@@ -26,14 +27,14 @@ public class CacheUtils {
     private static ThreadLocal<Method> CURRENT_METHOD = new ThreadLocal<>();
     private static ThreadLocal<JoinPoint> CURRENT_JOINPOINT = new NamedThreadLocal<>("currentJoinPoint");
 
-    // 模拟缓存
-    private static Map<String, Object> CACHE = new ConcurrentHashMap<>();
-
-    public static Object getCache(JoinPoint joinPoint){
+    public static void setCurrentJoinPoint(JoinPoint joinPoint){
+        Assert.notNull(joinPoint, "joinPoint Could't be null");
+        CURRENT_JOINPOINT.set(joinPoint);
+    }
+    public static String getCacheKey(JoinPoint joinPoint){
         if(joinPoint == null){
             return null;
         }
-        CURRENT_JOINPOINT.set(joinPoint);
         Method currentMethod = AopUtils.getMethod(joinPoint);
         if(currentMethod == null){
             // 这里不会出现这种情况吧 ？
@@ -48,9 +49,9 @@ public class CacheUtils {
 
         String cacheKey = getCacheKey(joinPoint, cacheDefinition, currentMethod);
 
-        Object cachedValue = CACHE.get(cacheKey);
+        //Object cachedValue = CACHE.get(cacheKey);
         // TODO: 2018/4/1 这里需要获取缓存的内容 
-        return cachedValue;
+        return cacheKey;
     }
 
     private static String getCacheKey(JoinPoint joinPoint, CacheDefinition cacheDefinition, Method method){
@@ -90,29 +91,6 @@ public class CacheUtils {
                 }
             }
         }
-    }
-
-    /**
-     * 设置缓存
-     */
-    public static void setCache(Object cacheValue){
-        if(cacheValue == null){
-            return;
-        }
-
-        Method method = CURRENT_METHOD.get();
-        CacheDefinition cacheDefinition = CACHE_CACHE.get(method);
-        if(cacheDefinition == null || cacheDefinition.isCache() == false){
-            // 没有缓存注解 或者 不需要缓存
-            return;
-        }
-
-        // 根据缓存策略以及缓存类型进行缓存
-        JoinPoint joinPoint = CURRENT_JOINPOINT.get();
-        // TODO: 2018/4/1 这里先采用模拟缓存
-        String cacheKey = getCacheKey(joinPoint, cacheDefinition, method);
-        CACHE.put(cacheKey, cacheValue);
-        System.out.println("已经缓存了");
     }
 
     

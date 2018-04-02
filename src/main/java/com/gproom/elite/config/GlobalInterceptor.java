@@ -35,12 +35,12 @@ public class GlobalInterceptor {
     }
 
 //    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
-    @Pointcut("within(com.gproom.elite.controller..*)")
+//    @Pointcut("within(com.gproom.elite.controller..*)")
     public void pointCut() {
 
     }
 
-    @Around("pointCut()")
+//    @Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         setCurrentInvokedMethodAndJoinPoint(joinPoint);
         MethodInvocation methodInvocation = ExposeInvocationInterceptor.currentInvocation();

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
  * @desc
  */
 @Aspect
-@Component
-public class AopTest {
+//@Component
+public abstract class AopTest {
 
     @Pointcut("@annotation(com.gproom.elite.annotation.TestAop)")
     public void pointCut(){
@@ -22,6 +22,8 @@ public class AopTest {
 
     @Before("pointCut()")
     public void before(JoinPoint joinPoint){
-
+        this.doBefore(joinPoint);
     }
+
+    protected abstract void doBefore(JoinPoint joinPoint);
 }

@@ -1,5 +1,6 @@
 package com.gproom.elite.controller;
 
+import com.gproom.elite.annotation.TestAop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class TestController {
     private HttpServletRequest request;
 
     @GetMapping("/testR")
+    @TestAop
     public String test(HttpServletRequest request1){
 
         request.getContextPath();
