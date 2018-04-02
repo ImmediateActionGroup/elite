@@ -31,6 +31,12 @@ public class CacheUtils {
         Assert.notNull(joinPoint, "joinPoint Could't be null");
         CURRENT_JOINPOINT.set(joinPoint);
     }
+
+    /**
+     * 生成 缓存key 值
+     * @param joinPoint
+     * @return
+     */
     public static String getCacheKey(JoinPoint joinPoint){
         if(joinPoint == null){
             return null;
@@ -49,8 +55,6 @@ public class CacheUtils {
 
         String cacheKey = getCacheKey(joinPoint, cacheDefinition, currentMethod);
 
-        //Object cachedValue = CACHE.get(cacheKey);
-        // TODO: 2018/4/1 这里需要获取缓存的内容 
         return cacheKey;
     }
 
@@ -93,7 +97,12 @@ public class CacheUtils {
         }
     }
 
-    
+    /**
+     * 解析方法注解
+     * @param method
+     * @param cache
+     * @return
+     */
     private static CacheDefinition parseCacheDefinition(Method method, Cache cache){
         if(cache == null || method == null){
             return null;
