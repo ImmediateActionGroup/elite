@@ -1,6 +1,8 @@
 package com.gproom.elite.service;
 
 import com.gproom.elite.common.dto.article.ArticleAddDto;
+import com.gproom.elite.common.vo.page.PageRequest;
+import com.gproom.elite.common.vo.page.PageResponse;
 
 /**
  * @Author xueshan.wei
@@ -14,4 +16,6 @@ public interface ArticleService {
      * @return
      */
     boolean addArticle(ArticleAddDto articleAddDto);
+
+    PageResponse findPage(PageRequest pageRequest);
 }

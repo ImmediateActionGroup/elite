@@ -5,6 +5,8 @@ import com.gproom.elite.common.dto.article.ArticleHeaderAddDTO;
 import com.gproom.elite.common.dto.article.ArticleInfoAddDTO;
 import com.gproom.elite.common.enums.BizTagEnums;
 import com.gproom.elite.common.enums.ExceptionEnums;
+import com.gproom.elite.common.vo.page.PageRequest;
+import com.gproom.elite.common.vo.page.PageResponse;
 import com.gproom.elite.exception.BusinessException;
 import com.gproom.elite.model.ArticleInfo;
 import com.gproom.elite.model.ArticleStatistic;
@@ -42,6 +44,12 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
     @Override
     public void init() {
         this.idWorker = new IdWorker(this.idCenterId, BizTagEnums.ARTICLE_HEADER.getValue());
+    }
+
+    @Override
+    public PageResponse findPage(PageRequest pageRequest) {
+
+        return null;
     }
 
     @Override

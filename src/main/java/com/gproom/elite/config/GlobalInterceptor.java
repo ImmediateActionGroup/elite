@@ -4,9 +4,11 @@ import com.gproom.elite.interceptor.MethodInterceptor;
 import com.gproom.elite.utils.AopUtils;
 import com.gproom.elite.utils.GlobalMethodInvokeContextHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.aop.interceptor.ExposeInvocationInterceptor;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -32,7 +34,8 @@ public class GlobalInterceptor {
         this.interceptors = interceptors;
     }
 
-    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
+//    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
+    @Pointcut("within(com.gproom.elite.controller..*)")
     public void pointCut() {
 
     }
@@ -40,7 +43,7 @@ public class GlobalInterceptor {
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         setCurrentInvokedMethodAndJoinPoint(joinPoint);
-
+        MethodInvocation methodInvocation = ExposeInvocationInterceptor.currentInvocation();
         for (MethodInterceptor interceptor : interceptors) {
             interceptor.doBefore(null);
         }
@@ -50,9 +53,8 @@ public class GlobalInterceptor {
         return retVal;
     }
 
+
     public void setCurrentInvokedMethodAndJoinPoint(JoinPoint joinPoint) {
-        GlobalMethodInvokeContextHolder.setCurrentJoinPoint(joinPoint);
-        Method invokedMethod = AopUtils.getMethod(joinPoint);
-        GlobalMethodInvokeContextHolder.setCurrentInterceptorMethod(invokedMethod);
+        GlobalMethodInvokeContextHolder.setCurrentInvokedContext(joinPoint);
     }
 }

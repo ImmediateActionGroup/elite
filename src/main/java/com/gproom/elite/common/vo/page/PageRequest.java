@@ -21,6 +21,15 @@ public class PageRequest {
     private Integer offset;
     private Integer limit;
 
+    private Long lastRow;
+
+    public Long getLastRow() {
+        return lastRow;
+    }
+
+    public void setLastRow(Long lastRow) {
+        this.lastRow = lastRow;
+    }
 
     public Integer getOffset() {
         return PageUtils.calculateOffset(pageSize, pageNumber);

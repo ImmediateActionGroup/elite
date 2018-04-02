@@ -6,4 +6,11 @@ package com.gproom.elite.other;
  * @desc
  */
 public class TestSplit {
+
+    public static void main(String[] args) {
+        String str = "jjj   jjj";
+        String [] items = str.split(" ");
+        String result = str.replaceAll(" +", " ");
+        System.out.println(items.length);
+    }
 }

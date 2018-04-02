@@ -75,6 +75,29 @@
     id, created_time, delete_flag, last_modify_time, author, short_content, title, type, 
     user_id, board_id
   </sql>
+  <sql id="findWhere">
+    <where>
+      <if test="lastRow != null and '' != lastRow">
+        AND id > #{lastRow}
+      </if>
+      <if test="lastRow != null and '' != lastRow">
+        AND id > #{lastRow}
+      </if>
+    </where>
+  </sql>
+  <select id="findPage" parameterType="com.gproom.elite.common.vo.page.PageRequest" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    article_header
+    <where>
+      <if test="lastRow != null and '' != lastRow">
+        AND id > #{lastRow}
+      </if>
+    </where>
+    LIMIT
+    #{offset}, #{limit}
+  </select>
   <select id="selectByExample" parameterType="com.gproom.elite.model.ArticleHeaderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
