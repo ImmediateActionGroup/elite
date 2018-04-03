@@ -8,6 +8,8 @@ import org.aspectj.lang.JoinPoint;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
+import org.springframework.util.Base64Utils;
+import org.springframework.util.DigestUtils;
 import sun.reflect.misc.MethodUtil;
 
 import java.lang.reflect.Method;
@@ -127,9 +129,8 @@ public class CacheUtils {
 
     private static String generateKeyMethod(Method method){
         String cacheKey = null;
-        String name = method.getName();
-        Class clazz = method.getDeclaringClass();
-        cacheKey = clazz.getName() + "." + name;
+        cacheKey = getMethodName(method);
+        cacheKey = Base64Utils.encodeToString(cacheKey.getBytes());
         return cacheKey;
     }
 
@@ -137,8 +138,14 @@ public class CacheUtils {
         String cacheKey = null;
         CacheParameterProperties parameterProperties = new CacheParameterProperties();
         parameterProperties.setValues(joinPoint.getArgs());
-        parameterProperties.setMethodName(method.getName());
+        parameterProperties.setMethodName(getMethodName(method));
         cacheKey = JsonUtils.toJson(parameterProperties);
+        cacheKey = Base64Utils.encodeToString(cacheKey.getBytes());
         return cacheKey;
+    }
+
+    private static String getMethodName(Method method){
+        Assert.notNull(method, "method could't be null");
+        return method.getDeclaringClass().getName() + "." + method.getName();
     }
 }

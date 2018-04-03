@@ -22,4 +22,18 @@ public class SimpleMemoryCacheFactory<K, V> extends AbstractCacheFactory<K, V> {
     protected V getCache(K cacheKey) {
         return CACHE.get(cacheKey);
     }
+
+    @Override
+    public int clear() {
+        int size = CACHE.size();
+        CACHE.clear();
+        return size;
+    }
+
+    @Override
+    public void clearSpecialKey(K key) {
+        if(CACHE.containsKey(key)){
+            CACHE.remove(key);
+        }
+    }
 }

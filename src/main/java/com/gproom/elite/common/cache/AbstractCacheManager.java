@@ -16,17 +16,17 @@ import org.springframework.util.Assert;
  */
 @Aspect
 @Slf4j
-public abstract class AbstractCache implements CacheOperate, InitializingBean{
+public abstract class AbstractCacheManager implements CacheOperate, InitializingBean{
     @Pointcut("@annotation(com.gproom.elite.annotation.Cache)")
     private final void cachePoint(){}
     private AbstractCacheFactory cacheFactory;
-
+    private static final String CACHE_KEY_PREFIX = "cache_key_";
     @Around("cachePoint()")
     private final Object cacheAround(ProceedingJoinPoint joinPoint) throws Throwable{
         doCacheBefore();
         CacheUtils.setCurrentJoinPoint(joinPoint);
 
-        String cacheKey = getCacheKey(joinPoint);
+        String cacheKey = CACHE_KEY_PREFIX + getCacheKey(joinPoint);
         if(cacheKey != null){
             Object cachedValue = cacheFactory.getCache(cacheKey);
             if(cachedValue != null){
@@ -60,11 +60,16 @@ public abstract class AbstractCache implements CacheOperate, InitializingBean{
         this.cacheFactory = abstractCacheFactory;
     }
 
+    protected AbstractCacheFactory getCacheFactory(){
+        return cacheFactory;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         /**
          * 默认为 简单内存缓存
          */
+        log.info("初始化为简单内存缓存");
         this.cacheFactory = new SimpleMemoryCacheFactory();
     }
 

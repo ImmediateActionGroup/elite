@@ -17,6 +17,6 @@ public class CacheTestServiceImpl implements CacheTestService{
     @Cache(description = "测试缓存")
     public String cacheTest(String parameter, boolean isNumber) {
         log.info("测试缓存......");
-        return "hello cache";
+        return "hello cache" + parameter + isNumber;
     }
 }
