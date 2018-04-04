@@ -98,6 +98,23 @@
     LIMIT
     #{offset}, #{limit}
   </select>
+
+  <select id="selectIn" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from article_header
+    where id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+
+    ORDER BY FIND_IN_SET( id,
+    <foreach collection="list" index="index2" item="item" open="'" separator="," close="'">
+      #{item}
+    </foreach>
+    )
+
+  </select>
   <select id="selectByExample" parameterType="com.gproom.elite.model.ArticleHeaderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

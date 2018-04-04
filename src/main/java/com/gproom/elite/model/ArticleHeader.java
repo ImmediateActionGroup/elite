@@ -1,7 +1,10 @@
 package com.gproom.elite.model;
 
+import lombok.ToString;
+
 import java.util.Date;
 
+@ToString
 public class ArticleHeader {
     private Long id;
 

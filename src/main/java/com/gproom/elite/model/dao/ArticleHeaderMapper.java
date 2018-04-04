@@ -1,12 +1,13 @@
 package com.gproom.elite.model.dao;
 
+import com.gproom.elite.common.dao.BaseDao;
 import com.gproom.elite.common.vo.page.PageRequest;
 import com.gproom.elite.model.ArticleHeader;
 import com.gproom.elite.model.ArticleHeaderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface ArticleHeaderMapper {
+public interface ArticleHeaderMapper extends BaseDao<ArticleHeader, Long>{
     long countByExample(ArticleHeaderExample example);
 
     int deleteByExample(ArticleHeaderExample example);
@@ -28,6 +29,4 @@ public interface ArticleHeaderMapper {
     int updateByPrimaryKeySelective(ArticleHeader record);
 
     int updateByPrimaryKey(ArticleHeader record);
-
-    List<ArticleHeader> findPage(PageRequest pageRequest);
 }
