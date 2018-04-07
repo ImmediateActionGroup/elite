@@ -5,6 +5,8 @@ import com.gproom.elite.common.dto.board.BoardAddDto;
 import com.gproom.elite.common.dto.board.BoardDTO;
 import com.gproom.elite.common.enums.BizTagEnums;
 import com.gproom.elite.common.enums.DeleteFlagEnum;
+import com.gproom.elite.common.enums.ExceptionEnums;
+import com.gproom.elite.exception.BusinessException;
 import com.gproom.elite.model.Board;
 import com.gproom.elite.model.dao.BoardMapper;
 import com.gproom.elite.service.BoardService;
@@ -39,6 +41,7 @@ public class BoardServiceImpl extends BaseService implements BoardService{
 
     @Override
     public boolean addBoard(BoardAddDto boardAddDto) {
+        log.info("【添加版块】开始, data:{}",boardAddDto);
         if(boardAddDto != null){
             Board board = new Board();
             board.setId(generateId());
@@ -48,10 +51,15 @@ public class BoardServiceImpl extends BaseService implements BoardService{
             board.setCreatedTime(now);
             board.setLastModifyTime(now);
             board.setDeleteFlag(DeleteFlagEnum.FAlSE.getValue());
-
-            int result = boardMapper.insert(board);
-
+            int result = 0;
+            try{
+                result = boardMapper.insert(board);
+            }catch (Exception e){
+                log.error("【添加版块】出错, (可能原因：版块名称重复), data: {}", boardAddDto);
+                throw new BusinessException(ExceptionEnums.ENTITY_ADD_ERROR);
+            }
             if(result > 0){
+                log.info("【添加版块】成功：{}", boardAddDto);
                 return true;
             }
         }

@@ -14,6 +14,8 @@ public enum ExceptionEnums {
 
     ARTICLE_ADD_ERROR("100000", "添加文章出错"),
 
+    ENTITY_ADD_ERROR("1000001", "添加实体出错"),
+
     PERMISSION_CHECK_ERROR("900000", "没有权限进行操作"),
 
     OTHER_EXCEPTION("999999", "其他异常")

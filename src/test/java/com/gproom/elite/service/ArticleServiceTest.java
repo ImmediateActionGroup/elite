@@ -30,7 +30,6 @@ public class ArticleServiceTest extends EliteApplicationTests{
     @Test
     public void testAdd() throws Exception{
 
-
         for (int i = 0; i < 20; i++) {
             String title = "test_" + i;
             insert(title);
@@ -42,7 +41,7 @@ public class ArticleServiceTest extends EliteApplicationTests{
         ArticleAddDto articleAddDto = ArticleAddDto.builder()
                 .title(title)
                 .content("content")
-                .boardId(61244205661700096L)
+                .boardId(66773954605629440L)
                 .type("吴")
                 .build();
         boolean result = articleService.addArticle(articleAddDto);

@@ -82,7 +82,7 @@ public class ArticleServiceImpl extends BaseService implements ArticleService {
         if(!articleInfoAddResult){
             throw new BusinessException(ExceptionEnums.ARTICLE_ADD_ERROR);
         }
-
+        log.info("添加文章-成功, {}", articleAddDto);
 //        String
         return true;
     }

@@ -94,11 +94,23 @@
       <if test="lastRow != null and '' != lastRow">
         AND id > #{lastRow}
       </if>
+      <if test="deleteFlag != null and '' != deleteFlag">
+        AND deleteFlag =  #{deleteFlag}
+      </if>
     </where>
     LIMIT
     #{offset}, #{limit}
   </select>
 
+  <select id="count" resultType="integer">
+    SELECT COUNT(1)
+    FROM article_header
+    <where>
+      <if test="deleteFlag != null and '' != deleteFlag">
+        AND deleteFlag =  #{deleteFlag}
+      </if>
+    </where>
+  </select>
   <select id="selectIn" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -108,11 +120,11 @@
       #{item}
     </foreach>
 
-    ORDER BY FIND_IN_SET( id,
-    <foreach collection="list" index="index2" item="item" open="'" separator="," close="'">
-      #{item}
-    </foreach>
-    )
+    <!--ORDER BY FIND_IN_SET( id,-->
+    <!--<foreach collection="list" index="index2" item="item" open="'" separator="," close="'">-->
+      <!--#{item}-->
+    <!--</foreach>-->
+    <!--)-->
 
   </select>
   <select id="selectByExample" parameterType="com.gproom.elite.model.ArticleHeaderExample" resultMap="BaseResultMap">
